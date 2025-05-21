@@ -140,7 +140,7 @@ def get_board(split = "train"):
         'prompt': [
             {'role': 'system', 'content': SYSTEM_PROMPT},
             {'role': 'user', 'content': x['FEN'] + " You are with the following pieces: " + fen_color(x['FEN'])}
-        ], 'evaluation': x['Evaluation']
+        ], 'evaluation': x['Evaluation'], 'fen': x['FEN']
     }, remove_columns=data.column_names)
     print(data[0])
     return data #
@@ -164,11 +164,11 @@ def reward_move(board, dataeval):
 
 
 # Reward functions
-def correctness_reward_func(prompts, completions, evaluation,**kwargs) -> list[float]:
+def correctness_reward_func(prompts,fen, completions, evaluation,**kwargs) -> list[float]:
     responses = [completion[0]['content'] for completion in completions]
-    fen = prompts[0][-1]['content']
     extracted_moves =  [extract_xml_answer(r) for r in responses]
-    board = chess.Board(fen)
+    fen_str = fen[0] if isinstance(fen, list) else fen
+    board = chess.Board(fen_str)
     print(f"------------\nFEN: {fen}\n--------- \nResponse: {responses[0]} \n----------\nExtracted_Move: {extracted_moves[0]}")
     rewards = []
     try:
