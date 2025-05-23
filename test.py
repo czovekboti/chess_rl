@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv
+load_dotenv()
+stockfish_path = os.getenv("STOCKFISH_PATH")
 import argparse
 parser = argparse.ArgumentParser(description="Choose model configuration")
 parser.add_argument(
@@ -149,7 +151,7 @@ def get_board(split = "train"):
 
 dataset = get_board()
 def reward_move(board, dataeval):
-  with chess.engine.SimpleEngine.popen_uci("/usr/games/stockfish") as engine:
+  with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
     result = engine.analyse(board, chess.engine.Limit(time=1.0)) # time doesn't make a real difference above this
   evaluation = result['score'].relative.score() #evaluation from opponents point of view
   print(f"\n----------------------\n")
