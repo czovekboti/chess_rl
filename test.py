@@ -64,6 +64,7 @@ dataset = load_dataset("czovekboti/chessdata", split="train")
 import wandb
 os.environ["WANDB_LOG_MODEL"] = "end"
 os.environ["WANDB_PROJECT"] = "Chess_RL_Project"
+os.environ["WANDB_ENTITY"] = "czovekboti-budapesti-m-szaki-s-gazdas-gtudom-nyi-egyetem"
 wandb.login()
 wandb.init(
     project="Chess_RL_Project",
