@@ -27,6 +27,10 @@ match config_name:
         config = config["PHI_config"]
     case "mistral":
         config = config["mistral_config"]
+    case "qwen7b":
+        config = config["qwen7b_config"]
+    case "qwen4b":
+        config = config["qwen4b_config"]
     case _:
         print("Check model name – perhaps the keyboard got excited.")
 
