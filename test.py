@@ -142,8 +142,6 @@ def extract_hash_answer(text: str) -> str | None:
 def get_board(split = "train"):
     def fen_color(fen: str) -> str:
         return "White" if fen.split()[1] == 'w' else "Black"
-
-    data = dataset.select(range(1000))
     data = data.map(lambda x: { # type: ignore
         'prompt': [
             {'role': 'system', 'content': SYSTEM_PROMPT},
